@@ -124,7 +124,7 @@ if mdata-get core_mail_whitelist 2>/dev/null; then
     >> /opt/kumquat/kumquat_web/settings.py
 fi
 
-# Init django data and create admin user
+echo "* Init django data and create admin user"
 /opt/kumquat/manage.py migrate --noinput --fake-initial
 
 ## Lookup correct email address
@@ -132,7 +132,8 @@ KUMQUAT_EMAIL=''
 if mdata-get mail_adminaddr 1>/dev/null 2>&1; then
   KUMQUAT_EMAIL=$(mdata-get mail_adminaddr)
 fi
-## Create root user (Django SuperAdmin for operator)
+
+echo "* Create root user (Django SuperAdmin for operator)"
 cat <<eof | /opt/kumquat/manage.py shell
 from django.contrib.auth import get_user_model
 user = get_user_model()
@@ -145,7 +146,8 @@ eof
 if mdata-get kumquat_admin_email 1>/dev/null 2>&1; then
   KUMQUAT_EMAIL=$(mdata-get kumquat_admin_email)
 fi
-# Create django superuser
+
+echo "* Create django superuser"
 cat <<eof | /opt/kumquat/manage.py shell
 from django.contrib.auth import get_user_model
 user = get_user_model()
@@ -153,10 +155,10 @@ user.objects.filter(username="admin").exists() or \
     user.objects.create_superuser("admin", "${KUMQUAT_EMAIL}", "${KUMQUAT_ADMIN_INITIAL_PW}")
 eof
 
-# Run update_vhosts once
+echo "* Run update_vhosts oncet"
 (cd /opt/kumquat/; ./manage.py update_vhosts)
 
-# Create cronjobs for kumquat
+echo "* Create cronjobs for kumquat"
 CRON="0 * * * * (cd /opt/kumquat/; ./manage.py update_vhosts)
 0,15,30,45 * * * * (cd /opt/kumquat/; ./manage.py delete_vhosts)
 1,11,21,31,41,51 * * * * (cd /opt/kumquat; ./manage.py update_cronjobs)
