@@ -75,5 +75,5 @@ no-auto-rehash
 EOF
 
 if [ ! -d /var/mysql/mysql ]; then
-         mariadb-install-db --datadir=/var/mysql --skip-name-resolve --skip-test-db --user=mariadb
+  mariadb-install-db --datadir=/var/mysql --skip-name-resolve --skip-test-db --user=mariadb
 fi

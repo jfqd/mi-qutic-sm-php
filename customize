@@ -21,6 +21,9 @@ MUNIN_PLUGINS="
 # Exit if any commands fail
 set -o errexit
 
+echo "* Fix /var/tmp rights"
+chmod 0777 /var/tmp/
+
 echo "* Use default python 3.12"
 pkg_alternatives manual python312
 pkg_alternatives manual py312-pip
