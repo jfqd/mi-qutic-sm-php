@@ -34,8 +34,8 @@ php83-gmp
 php83-yaml
 php83-pcntl
 # sql
-mariadb-server
-mariadb-client
+mariadb-server-11.4.8
+mariadb-client-11.4.8
 ## web
 apache
 ap24-usdt
