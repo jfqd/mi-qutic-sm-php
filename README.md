@@ -29,6 +29,8 @@ vmadm create << EOF
   ],
   "max_physical_memory": 2048,
   "max_swap": 2048,
+  "cpu_cap": 200,
+  "cpu_shares": 200,
   "quota": 32,
   "nics": [
     {
