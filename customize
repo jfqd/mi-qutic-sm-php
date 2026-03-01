@@ -112,6 +112,13 @@ echo "* update Let's Encrypt HOME permissions"
 chmod -R 700 /var/letsencrypt/state/
 chown -R letsencrypt:kumquat /var/letsencrypt/
 
+echo "* Create missing log-files"
+touch /var/log/ipf.log
+chmod 0640 /var/log/ipf.log
+
+echo "* Enable ipfilter"
+svcadm enable svc:/network/ipfilter:default || true
+
 echo "* Cleanup home/admin because of delegate dataset usage"
 rm -rf /home/admin
 
