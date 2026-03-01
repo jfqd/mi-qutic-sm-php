@@ -1,6 +1,6 @@
 # List packages to add to your image one per line.
 # workaround uid/gid for the package
-https://packages.pkgsrc.pub/skylime-extra/SmartOS/2024Q4/x86_64/mDNSResponder-2559.1.1nb1
+mDNSResponder
 # php
 php83-fpm
 php83-pdo
