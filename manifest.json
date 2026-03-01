@@ -1,5 +1,5 @@
 {
-  "name":         "mi-qutic-sm-php",
+  "name":         "qutic-sm-php",
   "version":      "1.0.0",
   "description":  "Standalone web services zone with apache,php,mysql,ftp and management frontend",
   "organization": "qutic development",
