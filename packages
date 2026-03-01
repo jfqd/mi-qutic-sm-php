@@ -1,0 +1,59 @@
+# List packages to add to your image one per line.
+# workaround uid/gid for the package
+https://packages.pkgsrc.pub/skylime-extra/SmartOS/2024Q4/x86_64/mDNSResponder-2559.1.1nb1
+# php
+php83-fpm
+php83-pdo
+php83-pdo_mysql
+php83-pdo_sqlite
+php83-zlib
+php83-soap
+php83-posix
+php83-pear
+php83-pear-Net_SMTP
+php83-pear-Mail_Mime
+php83-pear-HTTP_Request
+php83-pear-HTTP
+php83-mysqli
+php83-pecl-mcrypt
+php83-mbstring
+php83-intl
+php83-imagick
+php83-iconv
+php83-gd
+php83-exif
+php83-curl
+php83-bz2
+php83-bcmath
+php83-zip
+php83-ftp
+php83-opcache
+php83-imap
+php83-sqlite3
+php83-calendar
+php83-apcu
+php83-gmp
+php83-yaml
+php83-pcntl
+# sql
+mariadb-server
+mariadb-client
+## web
+apache
+ap24-usdt
+php83-phpmyadmin
+## python
+py312-future
+py312-cryptography
+py312-gunicorn
+py312-pip
+py312-passlib
+py312-OpenSSL
+#py312-expat
+py312-zmq
+py312-gevent
+py312-msgpack
+py312-mariadb114client
+## ftp
+proftpd
+proftpd-mariadb114

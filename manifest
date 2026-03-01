@@ -1,0 +1,8 @@
+name="mi-qutic-sm-php"
+organization="qutic development"
+brand="Instance"
+version="1.0.0"
+description="Standalone web services zone with apache,php,mysql,ftp and management frontend"
+homepage="https://github.com/jfqd/mi-qutic-sm-php"
+users="root admin webmaster"
+base="58b34c56-bbe5-11ef-a355-17294b2dd3e7"
