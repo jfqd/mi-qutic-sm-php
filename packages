@@ -1,6 +1,4 @@
 # List packages to add to your image one per line.
-# workaround uid/gid for the package
-mDNSResponder
 # php
 php83-fpm
 php83-pdo
