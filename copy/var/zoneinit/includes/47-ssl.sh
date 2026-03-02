@@ -20,6 +20,8 @@ if mdata-get kumquat_ssl 1>/dev/null 2>&1; then
     openssl pkcs7 -print_certs -out "${SSL_HOME}/kumquat.crt"
   )
 elif /opt/core/bin/ssl-letsencrypt.sh -t webroot 1>/dev/null; then
+  # Remove unused self-signed if available
+  rm -f ${SSL_HOME}/kumquat.* || true
   # Try to generate let's encrypt ssl certificate for the hostname
   LE_HOME='/opt/local/etc/letsencrypt/'
   LE_LIVE="${LE_HOME}live/$(hostname)/"
@@ -27,13 +29,14 @@ elif /opt/core/bin/ssl-letsencrypt.sh -t webroot 1>/dev/null; then
   ln -sf ${LE_LIVE}/fullchain.pem ${SSL_HOME}/kumquat.crt
   ln -sf ${LE_LIVE}/privkey.pem ${SSL_HOME}/kumquat.key
   # Update renew-hook.sh
-  echo '#!/usr/bin/env bash' > ${LE_HOME}renewal-hooks/deploy/kumquat.sh
-  echo 'svcadm restart svc:/pkgsrc/apache:default' >> ${LE_HOME}renewal-hooks/deploy/kumquat.sh
-  echo 'svcadm restart svc:/pkgsrc/proftpd:default' >> ${LE_HOME}renewal-hooks/deploy/kumquat.sh
-        chmod +x ${LE_HOME}renewal-hooks/deploy/kumquat.sh
-  # Remove unused self-signed if available
-  rm -f ${SSL_HOME}/kumquat.csr ${SSL_HOME}/kumquat.pem || true
+  cat > ${LE_HOME}renewal-hooks/deploy/kumquat.sh << EOF
+#!/usr/bin/bash
+svcadm restart svc:/pkgsrc/apache:default
+svcadm restart svc:/pkgsrc/proftpd:default
+EOF
+  chmod +x ${LE_HOME}renewal-hooks/deploy/kumquat.sh
 fi
 
-# Always run a restart of the webserver
+# Always run a restart services
 svcadm restart svc:/pkgsrc/apache:default
+svcadm restart svc:/pkgsrc/proftpd:default
