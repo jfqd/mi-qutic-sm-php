@@ -32,7 +32,7 @@ elif /opt/core/bin/ssl-letsencrypt.sh -t webroot 1>/dev/null; then
   echo 'svcadm restart svc:/pkgsrc/proftpd:default' >> ${LE_HOME}renewal-hooks/deploy/kumquat.sh
         chmod +x ${LE_HOME}renewal-hooks/deploy/kumquat.sh
   # Remove unused self-signed if available
-  rm -f ${SSL_HOME}/kumquat.csr ${SSL_HOME}/kumquat.pem
+  rm -f ${SSL_HOME}/kumquat.csr ${SSL_HOME}/kumquat.pem || true
 fi
 
 # Always run a restart of the webserver
