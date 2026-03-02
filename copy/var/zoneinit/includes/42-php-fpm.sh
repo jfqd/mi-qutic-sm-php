@@ -9,5 +9,10 @@ fi
 # Enable PHP-FPM
 /usr/sbin/svcadm enable svc:/pkgsrc/php-fpm83:default
 
-echo "/opt/local/bin/sed -i \"s#/var/log/php-fpm84.log.*##\" /etc/logadm.conf" >> /opt/local/bin/uptodate
-/opt/local/bin/sed -i "s#/var/log/php-fpm.log##" /etc/logadm.conf || true
+echo "* Fix logadm.conf"
+sed -i \
+    -e "s#-C -c -s 50m -z 1 5##" \
+    -e "s#/var/log/php-fpm.log#/var/log/php-fpm83.log#" \
+    /etc/logadm.conf
+
+echo "/opt/local/bin/sed -i \"s#/var/log/php-fpm.log.*##\" /etc/logadm.conf" >> /opt/local/bin/uptodate
