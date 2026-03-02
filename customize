@@ -40,6 +40,10 @@ gsed -i '/mysqlclient.*/d' /opt/kumquat/requirements.txt
 gsed -i '/pyOpenSSL.*/d' /opt/kumquat/requirements.txt
 pip install -r /opt/kumquat/requirements.txt
 pip install --no-deps zerorpc==0.6.3
+# Install requiremnts for letsencrypt
+pip install requests
+pip install josepy
+pip install acme
 
 echo "* Create extra ssl folder for kumquat"
 mkdir -p /opt/local/etc/kumquat/ssl
