@@ -81,6 +81,20 @@ done
 echo "* Change www user to /var/www for cronjobs"
 usermod -d /var/www www
 
+echo "* Create group for sftp and add it to www user"
+groupadd sftpuser
+usermod -G www,sftpuser www
+
+echo "* Add sshd config for sftp"
+cat > /etc/ssh/sshd_config << EOF
+
+Match Group sftpuser
+    ChrootDirectory /var/www/
+    ForceCommand internal-sftp
+    AllowTCPForwarding no
+    X11Forwarding no
+EOF
+
 echo "* Remove unused mysql stuff from base"
 rm -rf /var/mysql/*
 
@@ -95,8 +109,7 @@ cp /var/tmp/default-index.html /opt/local/share/httpd/htdocs/index.html
 rm /var/tmp/default-index.html
 
 echo "* Copy default proftpd configuration"
-cp /var/tmp/proftpd.conf /opt/local/etc/proftpd.conf
-rm /var/tmp/proftpd.conf
+mv /var/tmp/proftpd.conf /opt/local/etc/proftpd.conf
 
 echo "* Create extra logfile folder for proftpd"
 mkdir /var/log/proftpd
