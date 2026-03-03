@@ -148,15 +148,10 @@ LETSENCRYPT_STATE_FOLDER = '/var/letsencrypt/state/'
 # some features (like snapshots) will not be available
 KUMQUAT_USE_0RPC         = True
 
-KUMQUAT_USE_FTP  = False
-KUMQUAT_USE_MAIL = False
-
 # Allow the following variables in the template
 SETTINGS_EXPORT = [
   'KUMQUAT_WEBMAIL_URL',
   'KUMQUAT_PHPMYADMIN_URL',
   'KUMQUAT_USE_ZFS',
   'KUMQUAT_USE_0RPC',
-  'KUMQUAT_USE_FTP',
-  'KUMQUAT_USE_MAIL',
 ]
