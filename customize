@@ -26,8 +26,9 @@ echo "* Download and extract kumquat to /opt/kumquat"
 curl -L "https://github.com/wiedi/kumquat/archive/${KUMQUAT_VERSION}.tar.gz" | gtar xz -C /opt/kumquat --strip-components=1
 
 echo "* Fix encoding issue with latest python acme"
+# https://gist.github.com/wiedi/5e7c15c1c8f0455348cdd4cbac154b38
 sed -i \
-    -e "s/csr_pem = crypto_util.make_csr(pkey_pem, domain_names)/csr_pem = crypto_util.make_csr(pkey_pem.encode("utf-8"), domain_names)/" \
+    -e "s/csr_pem = crypto_util.make_csr(pkey_pem, domain_names)/csr_pem = crypto_util.make_csr(pkey_pem.encode(\"utf-8\"), domain_names)/" \
     /opt/kumquat/kumquat/management/commands/letsencrypt.py
 
 echo "* Add kumquat user"
