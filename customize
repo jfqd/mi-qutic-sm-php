@@ -31,6 +31,10 @@ sed -i \
     -e "s/csr_pem = crypto_util.make_csr(pkey_pem, domain_names)/csr_pem = crypto_util.make_csr(pkey_pem.encode(\"utf-8\"), domain_names)/" \
     /opt/kumquat/kumquat/management/commands/letsencrypt.py
 
+echo "* Extend base layout"
+rm /opt/kumquat/templates/base.html
+mv /var/tmp/base.html /opt/kumquat/templates/base.html
+
 echo "* Add kumquat user"
 groupadd kumquat
 useradd -d /opt/kumquat -c "kumquat user" -s /usr/bin/false -g kumquat kumquat

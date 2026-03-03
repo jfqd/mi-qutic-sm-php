@@ -1,0 +1,142 @@
+{% load i18n %}
+{% load bootstrap3 %}
+{% load static %}
+{% load messagegroups %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>{% block title %}SmartMachine{% if settings.KUMQUAT_SITE_NAME %} - {{ settings.KUMQUAT_SITE_NAME }}{% endif %}{% endblock %}</title>
+		{% bootstrap_css %}
+		<style>
+		body {
+		  padding-top: 50px;
+		}
+		.sub-header {
+		  padding-bottom: 10px;
+		  border-bottom: 1px solid #eee;
+		}
+		.navbar-fixed-top {
+		  border: 0;
+		}
+	    .sidebar {
+	      position: fixed;
+	      top: 51px;
+	      bottom: 0;
+	      left: 0;
+	      z-index: 1000;
+	      display: block;
+	      padding: 20px;
+	      overflow-x: hidden;
+	      overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+	      background-color: #f5f5f5;
+	      border-right: 1px solid #eee;
+	    }
+		.nav-sidebar {
+		  margin-right: -21px; /* 20px padding + 1px border */
+		  margin-bottom: 0;
+		  margin-left: -20px;
+		}
+		.nav-sidebar > li > a {
+		  padding-right: 20px;
+		  padding-left: 20px;
+		}
+		.nav-sidebar > li > h5 {
+			padding: 10px 20px;
+			color: #555;
+			margin: 0;
+			border-bottom: 1px solid #ccc;
+			font-size: 14px;
+		}
+		.nav-sidebar > .active > a,
+		.nav-sidebar > .active > a:hover,
+		.nav-sidebar > .active > a:focus {
+		  color: #fff;
+		  background-color: #428bca;
+		}
+		.nav-sidebar > li > a:before {
+			content: '» ';
+		}
+		.main {
+		  padding: 20px;
+		}
+		.main h1:first-of-type {
+		  margin-top: 0;
+		}
+		.progress {
+			margin-bottom: 0;
+		}
+		.text-limit {
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			max-width: 100ch;
+		}
+		.form-password .input-group-addon {
+			cursor: pointer;
+			pointer-events: all;
+		}
+		</style>
+		{% block extrahead %}{% endblock %}
+	</head>
+	<body>
+		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="{% url 'status' %}">Kumquat{% if settings.KUMQUAT_SITE_NAME %} - {{ settings.KUMQUAT_SITE_NAME }}{% endif %}</a>
+				</div>
+				<div class="navbar-collapse collapse">
+					<ul class="nav navbar-nav navbar-right">
+						{% if user.is_authenticated %}
+							<li><a href="{% url "password_change" %}">{% trans "Logged in as" %} <strong>{{ user.username }}</strong></a></li>
+							<li><a href="{% url "logout_then_login" %}">{% trans "Logout" %}</a></li>
+						{% else %}
+							<li><a href="{% url "login" %}">{% trans "Login" %}</a></li>
+						{% endif %}
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-4 col-sm-3 col-md-2 sidebar">
+					<ul class="nav nav-sidebar">
+						<li><h5>System</h5></li>
+						<li><a href="{% url 'status' %}">Overview</a></li>
+						<li><a href="{% url 'domain_list' %}">Domains</a></li>
+						<li><a href="{% url 'cronjob_list' %}">Cronjobs</a></li>
+						<li><h5>Web</h5></li>
+						<li><a href="{% url 'web_vhost_list' %}">VHosts</a></li>
+						<li><a href="{% url 'web_sslcert_list' %}">SSL Certificates</a></li>
+						<li><h5>MySQL</h5></li>
+						<li><a href="{% url 'mysql_database_list' %}">Databases</a></li>
+						{% if settings.KUMQUAT_PHPMYADMIN_URL %}
+						<li><a href="{{ settings.KUMQUAT_PHPMYADMIN_URL }}">phpMyAdmin</a></li>
+						{% endif %}
+						{% if settings.KUMQUAT_USE_MAIL %}
+						<li><h5>Email</h5></li>
+						<li><a href="{% url 'mail_account_list' %}">Accounts</a></li>
+						<li><a href="{% url 'mail_redirect_list' %}">Redirects</a></li>
+						{% endif %}
+						{% if settings.KUMQUAT_WEBMAIL_URL %}
+						<li><a href="{{ settings.KUMQUAT_WEBMAIL_URL }}">Webmail</a></li>
+						{% endif %}
+						{% if settings.KUMQUAT_USE_FTP %}
+						<li><h5>FTP</h5></li>
+						<li><a href="{% url 'ftp_account_list' %}">Accounts</a></li>
+						{% endif %}
+					</ul>
+				</div>
+				<div class="col-xs-8 col-xs-offset-4 col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+					{% block content %}{% endblock %}
+				</div>
+			</div>
+		</div>
+		{% bootstrap_javascript %}
+		<script src="{% static "bootstrap/bootbox.min.js" %}"></script>
+		<script src="{% static "password-generator.min.js" %}"></script>
+		<script src="{% static "kumquat.js" %}"></script>
+	</body>
+</html>
