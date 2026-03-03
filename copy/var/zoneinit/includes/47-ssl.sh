@@ -39,4 +39,8 @@ fi
 
 # Always run a restart services
 svcadm restart svc:/pkgsrc/apache:default
-svcadm restart svc:/pkgsrc/proftpd:default
+
+# Enable proftpd service
+if mdata-get enable_proftpd 1>/dev/null 2>&1; then
+  svcadm restart svc:/pkgsrc/proftpd:default
+fi
