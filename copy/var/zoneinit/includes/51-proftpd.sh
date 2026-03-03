@@ -8,4 +8,6 @@ MYSQL_KUMQUAT=$(mdata-get mysql_kumquat_pw)
   /opt/local/etc/proftpd.conf
 
 # Enable proftpd service
-/usr/sbin/svcadm enable svc:/pkgsrc/proftpd:default
+if mdata-get enable_proftpd 1>/dev/null 2>&1; then
+  /usr/sbin/svcadm enable svc:/pkgsrc/proftpd:default
+fi
