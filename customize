@@ -90,7 +90,7 @@ groupadd sftpuser
 usermod -G www,sftpuser www
 
 echo "* Add sshd config for sftp"
-cat > /etc/ssh/sshd_config << EOF
+cat >> /etc/ssh/sshd_config << EOF
 
 Match Group sftpuser
     ChrootDirectory /var/www/
