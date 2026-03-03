@@ -31,6 +31,7 @@
     "core_mail_whitelist":   {"type": "text", "description": "mail whitelist for all accounts"},
     "mysql_pw":              {"type": "text", "description": "mysql root password"},
     "phpmyadmin_allow":      {"type": "text", "description": "limit phpMyAdmin access by ip or host (default is allow all)"},
-    "webmail_url":           {"type": "text", "description": "URL to external Webmail"}
+    "webmail_url":           {"type": "text", "description": "URL to external Webmail"},
+    "enable_proftpd":        {"type": "text", "description": "set to true if proftpd should be enabled"}
   }
 }
